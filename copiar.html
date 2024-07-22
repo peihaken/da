@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copiar Información con Botón</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  .copy-button {
+    margin-bottom: 10px;
+  }
+</style>
+</head>
+<body>
+  <h2>Información para Copiar</h2>
+
+  <div id="informacion">
+    <p><strong>RUT:</strong> 20.800.247-3</p>
+    <p><strong>Nombre:</strong> Daniel Alvarado</p>
+    <p><strong>Banco:</strong> Banco Caja de los Andes</p>
+  </div>
+
+  <script>
+    function copiarTexto(texto) {
+      // Crear un elemento input para copiar el texto deseado
+      var input = document.createElement('textarea');
+      input.innerHTML = texto;
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
+    }
+
+    window.onload = function() {
+      var textos = document.querySelectorAll('#informacion p');
+      textos.forEach(function(item) {
+        var texto = item.textContent;
+        var boton = document.createElement('button');
+        boton.textContent = 'Copiar';
+        boton.className = 'copy-button';
+        boton.addEventListener('click', function() {
+          copiarTexto(texto);
+          alert('Texto copiado: ' + texto);
+        });
+        item.appendChild(boton);
+      });
+    };
+  </script>
+</body>
+</html>
